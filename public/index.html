@@ -1,0 +1,55 @@
+<html ng-app="demoApp">
+<head>
+    <title>Test</title>
+    <script src="js/lib/angular.js"></script>
+    <script src="js/lib/angular-route.js"></script>
+    <script>
+
+        var demoApp = angular.module('demoApp', ['ngRoute']);
+
+        demoApp.config(function($routeProvider){
+            $routeProvider
+                    .when('/view1',
+                    {
+                        controller: 'SimpleController',
+                        templateUrl: 'partials/View1.html'
+                    })
+                    .otherwise({redirectTo:'/view1'});
+
+        });
+
+        demoApp.factory('simpleFactory', function($http){
+            var customers = [{name: 'Luis', city: 'Buenos aires'},{name: 'Patricia', city: 'Maracaibo'},{name: 'Yihcson', city: 'Maracaibo'}];
+            var factory = {};
+            factory.getCustomers = function(){
+                return customers;
+            }
+            return factory;
+        });
+
+        demoApp.controller('SimpleController', function($scope, simpleFactory){
+            $scope.customers = [];
+
+            init();
+
+            function init(){
+                $scope.customers = simpleFactory.getCustomers();
+            }
+
+            $scope.addCustomer = function(){
+                $scope.customers.push({name: $scope.newCustomer.name, city: $scope.newCustomer.city});
+            }
+        });
+    </script>
+</head>
+<body>
+<div id="nav">
+    <a href="#view1">1</a> -<a href="#view2">2</a> -
+</div>
+<div id="content" ng-view="">
+
+</div>
+
+
+</body>
+</html>
