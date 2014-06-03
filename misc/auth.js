@@ -5,6 +5,21 @@ module.exports = function(req, res, next){
   var method = req.originalMethod;
   var token = req.headers.token;
 
+//  var jsFolder = new RegExp("(/js/).*");
+//
+//  var publicFolders = ["(/js/).*", "(/img/).*", "(/templates/).*", "/favicon.ico", "/index.html"];
+//  var isPublicFolder = false;
+//
+//  _.each(publicFolders, function(v, i){
+//    if(new RegExp(v).test(url)){
+//      isPublicFolder = true;
+//    }
+//  });
+//
+//  if(isPublicFolder === true){
+//    return next();
+//  }
+
   var publicRoutes = {
     '/login': ['POST']
   };
@@ -16,6 +31,7 @@ module.exports = function(req, res, next){
   if(!token){
     res.status(401);
     res.end();
+    return;
   }
 
   global.models.User.forge({token: token})
@@ -24,14 +40,16 @@ module.exports = function(req, res, next){
       if(!user){
         res.send(401);
         res.end();
+        return;
       }else{
         req.user = user;
         return next();
       }
 
     })
-    .catch(function(){
+    .catch(function(e){
       res.send(500);
       res.end();
+      return;
     });
 }

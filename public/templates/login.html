@@ -1,10 +1,12 @@
-<form name="loginForm" ng-submit="login(credentials)"
-      novalidate>
-    <label for="username">Username:</label>
-    <input type="text" id="username"
-           ng-model="credentials.username">
-    <label for="password">Password:</label>
-    <input type="password" id="password"
-           ng-model="credentials.password">
-    <button type="submit">Login</button>
-</form>
+<div class="container col-lg-4 col-lg-push-4">
+
+    <form class="form-signin" role="form"  ng-submit="login(credentials)">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="email" class="form-control" placeholder="Email address" required="" autofocus="" ng-model="credentials.email">
+        <br />
+        <input type="password" class="form-control" placeholder="Password" required="" ng-model="credentials.password">
+        <div class="loginError"><span class="text-danger">{{loginError}}</span></div>
+        <button class="btn btn-lg btn-default" type="submit">Sign in</button>
+    </form>
+
+</div>

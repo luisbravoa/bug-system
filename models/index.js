@@ -1,5 +1,7 @@
 var models = {
-  User: require('./User')
+  User: require('./User'),
+  Application: require('./Application'),
+  Environment: require('./Environment')
 };
 
 exports.models = models;

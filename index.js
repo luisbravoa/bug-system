@@ -24,6 +24,8 @@ global.models = require('./models/index').models;
 // Routes
 
 var users = require('./routes/users');
+var applications = require('./routes/applications');
+var environments = require('./routes/environments');
 
 //CORS middleware
 var allowCrossDomain = function(req, res, next) {
@@ -34,7 +36,7 @@ var allowCrossDomain = function(req, res, next) {
   next();
 }
 
-app.use(express.static(__dirname + '/public'));
+
 app.use(morgan('dev'));
 app.use(bodyParser());
 app.use(methodOverride());
@@ -44,6 +46,7 @@ app.use(allowCrossDomain);
 
 var router = express.Router();
 
+router.use(express.static(__dirname + '/public'));
 router.use(auth);
 router.use(function(req, res, next){
 
@@ -52,6 +55,8 @@ router.use(function(req, res, next){
 
 
 router.get('/users', users.listAll);
+router.get('/applications', applications.listAll);
+router.get('/environments', environments.listAll);
 
 router.post('/login', users.login);
 

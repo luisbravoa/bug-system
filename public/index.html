@@ -1,55 +1,59 @@
-<html ng-app="demoApp">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>Test</title>
-    <script src="js/lib/angular.js"></script>
-    <script src="js/lib/angular-route.js"></script>
-    <script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        var demoApp = angular.module('demoApp', ['ngRoute']);
+    <title>Bug System</title>
 
-        demoApp.config(function($routeProvider){
-            $routeProvider
-                    .when('/view1',
-                    {
-                        controller: 'SimpleController',
-                        templateUrl: 'partials/View1.html'
-                    })
-                    .otherwise({redirectTo:'/view1'});
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script data-main="js/config" src="bower_components/requirejs-bower/require.js"></script>
 
-        });
-
-        demoApp.factory('simpleFactory', function($http){
-            var customers = [{name: 'Luis', city: 'Buenos aires'},{name: 'Patricia', city: 'Maracaibo'},{name: 'Yihcson', city: 'Maracaibo'}];
-            var factory = {};
-            factory.getCustomers = function(){
-                return customers;
-            }
-            return factory;
-        });
-
-        demoApp.controller('SimpleController', function($scope, simpleFactory){
-            $scope.customers = [];
-
-            init();
-
-            function init(){
-                $scope.customers = simpleFactory.getCustomers();
-            }
-
-            $scope.addCustomer = function(){
-                $scope.customers.push({name: $scope.newCustomer.name, city: $scope.newCustomer.city});
-            }
-        });
-    </script>
 </head>
-<body>
-<div id="nav">
-    <a href="#view1">1</a> -<a href="#view2">2</a> -
-</div>
-<div id="content" ng-view="">
+
+<body ng-controller="AppController">
+
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation" ng-if="currentUser" ng-cloak>
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/">Bug System</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#/bugs/add">Add new bug</a>
+                </li>
+                <li><a href="#/restricted">Restricted</a></li>
+                <li ng-model="currentUser.email">{{currentUser.email}}</li>
+                <li><a ng-click="logout()">Logout</a></li>
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<div class="container" ng-view>
+
+
 
 </div>
+<!-- /.container -->
 
 
 </body>
+
 </html>
