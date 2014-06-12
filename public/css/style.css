@@ -7,8 +7,19 @@ body {
 
 .hero-feature {
     margin-bottom: 30px;/* spaces out the feature boxes once they start to stack responsively */
-}
+    text-align: left;
+    vertical-align: top;
+    max-height: 250px;
+    height: 250px;
 
+}
+.thumbnail{
+    height: 100%;
+}
+.hero-feature .caption {
+    padding-left: 20px;
+    padding-right: 20px;
+}
 footer {
     margin: 50px 0;
 }
@@ -24,4 +35,55 @@ footer {
 }
 .bigFont{
     font-size: 8em;
+}
+.bugDescription{
+    height: 45px;
+    overflow-y: hidden;
+    /*border: #000000 1px solid;*/
+}
+
+a,
+a label {
+    cursor: pointer;
+}
+
+.screenshotThumb{
+    display: inline-block;
+    width: auto;
+    /*height: 130px;*/
+    vertical-align: top;
+    text-align: center;
+    margin: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+
+}
+.screenshotThumb img {
+    max-height: 100px;
+    max-width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 4px;
+
+
+}
+.fileImg{
+    height: 105px;
+    width: 105px;
+}
+.fileFooter{
+    margin-top: 5px;
+    background-color: #ddd;
+
+}
+.fileFooter hr{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
 }

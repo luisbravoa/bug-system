@@ -17,7 +17,6 @@
 </head>
 
 <body ng-controller="AppController">
-
 <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation" ng-if="currentUser" ng-cloak>
     <div class="container">
         <div class="navbar-header">
@@ -35,10 +34,23 @@
             <ul class="nav navbar-nav">
                 <li><a href="#/bugs/add">Add new bug</a>
                 </li>
-                <li><a href="#/restricted">Restricted</a></li>
-                <li ng-model="currentUser.email">{{currentUser.email}}</li>
-                <li><a ng-click="logout()">Logout</a></li>
+                <li><a href="#/bugs/list">List</a></li>
+                <!--<li><a href="#/restricted">Restricted</a></li>-->
 
+
+                <li><a>Debug: {{currentUser.token}}</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{currentUser.name}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <!--<li><a href="#">Action</a></li>-->
+                        <!--<li><a href="#">Another action</a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <li><a ng-click="logout()">Logout</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -46,14 +58,22 @@
     <!-- /.container -->
 </nav>
 
-<div class="container" ng-view>
 
-
-
+<div class="container mainContainer" ng-view>
 </div>
 <!-- /.container -->
+<div class="container"  ng-if="currentUser" ng-cloak>
 
+    <hr>
 
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Company 2014</p>
+            </div>
+        </div>
+    </footer>
+</div>
 </body>
 
 </html>

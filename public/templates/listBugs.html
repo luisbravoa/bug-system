@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-lg-6">
+        <h3>Bug list</h3>
+    </div>
+
+</div>
+
+<div class="container-fluid">
+
+    <div class="form-inline col-lg-6" role="form">
+        <div class="form-group">
+            <label class="sr-only" for="search">Search</label>
+            <input type="text" class="form-control" id="search" placeholder="Search" ng-model="query">
+        </div>
+        <div class="form-group">
+            <label  for="order">Order by</label>
+            <select class="form-control" id="order" ng-model="orderBy">
+                <option value="name">Name</option>
+                <option value="id">Created</option>
+            </select>
+            {{order}}
+        </div>
+    </div>
+    <div class="col-lg-6 text-right">
+        <a href="#/bugs/add" class="btn btn-danger btn-lg">Add new bug</a>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+
+    <div class="col-lg-3 col-md-6 hero-feature" ng-repeat="bug in bugs | filter:query | orderBy:orderBy:true">
+        <div class="thumbnail">
+            <!--<img src="http://placehold.it/800x500" alt="">-->
+            <div class="caption">
+                <h4>{{bug.title|truncate:30}}</h4>
+                <p>App: {{bug.Application.name}}</p>
+                <p>Env: {{bug.Environment.name}}</p>
+                <p class="bugDescription">{{bug.description|truncate:50}}</p>
+                <p><a ng-href="#/bugs/{{bug.id}}" class="btn btn-primary">View</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>

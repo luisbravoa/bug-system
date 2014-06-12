@@ -1,16 +1,16 @@
-define(['app', 'angular', 'angularRoute', 'controllers/AppController', 'controllers/LoginController','controllers/AddBugController'], function(mainApp){
+define(['app', 'angular', 'angularRoute', 'controllers/AppController', 'controllers/LoginController','controllers/AddBugController','controllers/ListBugController','controllers/BugController'], function(mainApp){
   mainApp.config(function($routeProvider,USER_ROLES) {
     $routeProvider
       .when('/', {
-        templateUrl: 'templates/index.html',
-        controller: 'AppController',
+        templateUrl: 'templates/listBugs.html',
+        controller: 'ListBugController',
         data: {
           authorizedRoles: [USER_ROLES.all]
         }
       })
-      .when('/login', {
-        templateUrl: 'templates/login.html',
-        controller: 'LoginController',
+      .when('/bugs/list', {
+        templateUrl: 'templates/listBugs.html',
+        controller: 'ListBugController',
         data: {
           authorizedRoles: [USER_ROLES.all]
         }
@@ -18,6 +18,20 @@ define(['app', 'angular', 'angularRoute', 'controllers/AppController', 'controll
       .when('/bugs/add', {
         templateUrl: 'templates/addBug.html',
         controller: 'AddBugController',
+        data: {
+          authorizedRoles: [USER_ROLES.all]
+        }
+      })
+      .when('/bugs/:id', {
+        templateUrl: 'templates/viewEditBug.html',
+        controller: 'BugController',
+        data: {
+          authorizedRoles: [USER_ROLES.all]
+        }
+      })
+      .when('/login', {
+        templateUrl: 'templates/login.html',
+        controller: 'LoginController',
         data: {
           authorizedRoles: [USER_ROLES.all]
         }

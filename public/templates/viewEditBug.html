@@ -1,0 +1,58 @@
+<div class="container" ng-show="formEnabled">
+    <h1>Edit Bug</h1>
+    <a ng-click="formEnabled = false">Cancel Edit</a>
+</div>
+
+<div class="container" ng-show="!formEnabled">
+    <h1>View Bug</h1>
+    <a ng-click="formEnabled = true">Edit</a>
+</div>
+
+
+<form role="form"  ng-submit="process(bug)">
+    <ng-include src="'templates/FormElements/bugForm.html'"></ng-include>
+    <div class="row">
+        <div class="form-group col-lg-12">
+            <hr/>
+            <label for="screenshots">Screenshots <span ng-show="loadingFiles"><img src="img/loader.gif"></span></label>
+            <ul>
+                <div ng-repeat="file in bug.Files" class="screenshotThumb">
+                    <div class="fileImg">
+                        <span class="helper"></span><a ng-click="showFile(file)" class="text-center"><img ng-src="{{file.name}}"> </a>
+                    </div>
+                    <div class="text-center fileFooter" ng-show="formEnabled">
+                        <hr/>
+                        <span ><a ng-click="deleteFile(file)"><span class="glyphicon glyphicon-trash"></span></a></span></div>
+                </div>
+            </ul>
+            <div class="row col-lg-6"  ng-show="formEnabled">
+                <div class="col-lg-3">
+                    <input type="file" id="screenshots"  file-input="screenshots" multiple ng-disabled="!formEnabled">
+                </div>
+                {{screenshots}}
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="formEnabled">
+        <hr/>
+        <div class="form-group col-lg-12">
+            <button class="btn btn-default" ng-disabled="!formEnabled">Submit</button>
+            <button class="btn btn-default"   ng-click="formEnabled = false">Cancel</button>
+        </div>
+    </div>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">ScreenShot</h4>
+            </div>
+            <div class="modal-body">
+                <a ng-href="{{currentFile.name}}" target="_blank"><img ng-src="{{currentFile.name}}" style="max-width: 500px; max-height: 500px;"></a>
+            </div>
+        </div>
+    </div>
+</div>

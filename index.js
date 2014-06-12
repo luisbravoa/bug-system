@@ -3,6 +3,8 @@ var morgan         = require('morgan');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var app            = express();
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
 
 var utils = require('./misc/utils');
 var auth = require('./misc/auth');
@@ -26,6 +28,7 @@ global.models = require('./models/index').models;
 var users = require('./routes/users');
 var applications = require('./routes/applications');
 var environments = require('./routes/environments');
+var bugs = require('./routes/bugs');
 
 //CORS middleware
 var allowCrossDomain = function(req, res, next) {
@@ -59,6 +62,12 @@ router.get('/applications', applications.listAll);
 router.get('/environments', environments.listAll);
 
 router.post('/login', users.login);
+router.get('/bugs', bugs.listAll);
+router.get('/bugs/:id', bugs.getById);
+router.post('/bugs/search', bugs.search);
+router.delete('/bugs/:id/files/:file_id', bugs.deleteFile);
+router.post('/bugs/:id/files', multipartMiddleware, bugs.addFiles);
+router.post('/bugs', multipartMiddleware, bugs.add);
 
 var server = app.listen(3000, function() {
   console.log('Listening on port %d', server.address().port);

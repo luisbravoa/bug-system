@@ -1,6 +1,7 @@
-define(['app', 'factories/User', 'factories/Auth',  'factories/Application',  'factories/Environment', 'services/Session'], function (mainApp, Session) {
-  mainApp.controller('AddBugController', ['$scope', '$rootScope', '$location', 'Application','Environment', function ($scope, $rootScope, $location, Application, Environment) {
+define(['app', 'factories/User', 'factories/Auth',  'factories/Application',  'factories/Environment',   'factories/Bug', 'services/Session'], function (mainApp) {
+  mainApp.controller('AddBugController', ['$scope', '$rootScope', '$location', 'Application','Environment','Bug', function ($scope, $rootScope, $location, Application, Environment, Bug) {
 
+    $scope.formEnabled = true;
     Application.listAll()
       .then(function(data){
         $scope.applications = data;
@@ -13,25 +14,31 @@ define(['app', 'factories/User', 'factories/Auth',  'factories/Application',  'f
     // FILES
     // https://egghead.io/lessons/angularjs-file-uploads
 
-    $scope.newBug = {};
+    $scope.bug = {};
     $scope.errors = {};
-    $scope.newBug.application_id = 1;
-    $scope.newBug.environment_id = 1;
-    $scope.newBug.country = 'AR';
-    $scope.newBug.language = 'SPA';
+    $scope.bug.application_id = 1;
+    $scope.bug.environment_id = 1;
+    $scope.bug.country = 'AR';
+    $scope.bug.language = 'SPA';
     $scope.type = 'mobile';
 
     $scope.getType = function(){
       angular.forEach($scope.applications, function(v){
-        if(v.id == $scope.newBug.application_id ){
+        if(v.id == $scope.bug.application_id ){
           $scope.type = v.type;
         }
       });
     }
 
-    $scope.addBug = function(){
-      console.log($scope.newBug);
+    $scope.process = function(bug){
+      Bug.add(bug)
+        .then(function(){
+          $location.path('/bugs/list');
+        });
     }
+
+
+
 
   }]);
 });
