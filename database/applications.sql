@@ -1,0 +1,13 @@
+INSERT INTO applications (id, name, type) VALUES (1, 'User Android', 'mobile');
+INSERT INTO applications (id, name, type) VALUES (2, 'User IOS', 'mobile');
+INSERT INTO applications (id, name, type) VALUES (3, 'User Windows Phone', 'mobile');
+INSERT INTO applications (id, name, type) VALUES (4, 'User BlackBerry 6.x 7.x', 'mobile');
+INSERT INTO applications (id, name, type) VALUES (5, 'User Blackberry 10', 'mobile');
+INSERT INTO applications (id, name, type) VALUES (6, 'Driver Adroid', 'mobile');
+INSERT INTO applications (id, name, type) VALUES (7, 'Driver IOS', 'mobile');
+INSERT INTO applications (id, name, type) VALUES (8, 'Backend', 'web');
+INSERT INTO applications (id, name, type) VALUES (9, 'Corporate Portal', 'web');
+INSERT INTO applications (id, name, type) VALUES (10, 'User Portal', 'web');
+INSERT INTO applications (id, name, type) VALUES (11, 'Website', 'web');
+INSERT INTO applications (id, name, type) VALUES (12, 'API', 'server');
+INSERT INTO applications (id, name, type) VALUES (13, 'CPAPI', 'server');
