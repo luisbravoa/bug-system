@@ -94,6 +94,8 @@ exports.search = function(req, res){
   options.query = req.body.query;
   options.page = req.body.page;
   options.limit = req.body.limit;
+  options.orderBy = req.body.orderBy;
+  options.orientation = req.body.orientation;
 
   global.models.Bug
     .forge()

@@ -81,16 +81,68 @@ module.exports  = global.bookshelf.Model.extend({
     var total;
     var offset = 0;
     var page = (options.page)?options.page:1;
-    var query = (options.query)?options.query:null;
+    var search = (options.query)?options.query.toLowerCase():null;
     var limit = (options.limit)?options.limit:15;
+    var orderBy = (options.orderBy)?options.orderBy:'id';
+    var orientation = (options.orientation)?options.orientation:'DESC';
 
-    return self
-      .query(function(qb) {
-        if(query){
-          qb.where('title', 'ILIKE', '%'+options.query);
+
+
+    var query = "select count(*) from bugs ";
+
+
+
+    if(search !== null){
+      var termArray = search.split(" ");
+      var where = "title LIKE '%" + search + "' OR description LIKE '%" + search + "' ";
+      for (var i = 0; i < termArray.length; i++) {
+        if (termArray[i].length > 1) {
+          where += "OR title LIKE '%" + termArray[i] + "%' OR description LIKE '%" + termArray[i] + "%' ";
         }
-        qb.limit(options.limit).offset(30);
+      }
+      query += "where " + where;
+    }else{
+      where = '';
+    }
+
+
+
+    return global.bookshelf.knex.raw(query)
+      .then(function(result){
+        total = result[0][0]['count(*)'];
+        if(limit == 0 ){
+          total_pages = 1;
+        }else{
+          total_pages = Math.ceil(total / limit);
+          offset = (page - 1) * limit;
+        }
+        return when.resolve(self);
       })
+      .then(function(){
+        try{
+          return global.models.Bug.collection()
+            .query(function(qb) {
+              if(search){
+                qb.whereRaw(where);
+              }
+              qb.limit(options.limit).offset(offset).orderBy(orderBy, orientation);
+            })
+            .fetch({withRelated: ['Files', 'Application', 'Environment']})
+        }catch (e){
+          console.log(e);
+        }
+
+      })
+
+      .then(function(data){
+
+        var response = {};
+        response.total_pages = total_pages;
+        response.page = page;
+        response.limit = limit;
+        response.data = data;
+        return when.resolve(response);
+      });
 
   },
 

@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-lg-6">
+        <h3>Bug Search</h3>
+    </div>
+</div>
+<div class="container-fluid">
+
+    <div class="form-inline col-lg-8" role="form">
+        <div class="form-group">
+            <label class="sr-only" for="search">Search</label>
+            <input type="text" class="form-control" id="search" placeholder="Search" ng-model="options.query">
+        </div>
+        <div class="form-group">
+            <label  for="order">Order by</label>
+            <select class="form-control" id="order" ng-model="options.orderBy">
+                <option value="name">Name</option>
+                <option value="id">Created</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <!--<label  for="order">Order by</label>-->
+            <select class="form-control" ng-model="options.orientation">
+                <option value="ASC">ASC</option>
+                <option value="DESC">DESC</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label  for="order">Per page</label>
+            <select class="form-control" ng-model="options.limit">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="40">40</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="search">Search</label>
+            <button type="text" class="btn" ng-click="searchRequest()">Search</button>
+        </div>
+
+    </div>
+    <div class=" col-lg-4 text-center">
+        <ul class="pagination">
+            <li ng-repeat="page in pageNav" ng-class="{true: 'disabled', false: ''}[page.current]"><a href="" ng-click="search(options.query, page.number)">{{page.text}}</a></li>
+        </ul>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="row">
+        <div class="row text-center" ng-show="loading">
+            <img src="img/loading-bar.gif">
+            <h4>Loading...</h4>
+        </div>
+
+        <div class="col-lg-3 col-md-6 hero-feature" ng-repeat="bug in bugs" ng-show="!loading">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4>{{bug.title|truncate:30}} {{bug.id}}</h4>
+                    <p>App: {{bug.Application.name}}</p>
+                    <p>Env: {{bug.Environment.name}}</p>
+                    <p class="bugDescription">{{bug.description|truncate:50}}</p>
+                    <p><a ng-href="#/bugs/{{bug.id}}" class="btn btn-primary">View</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row text-center">
+        <ul class="pagination">
+            <li ng-repeat="page in pageNav" ng-class="{true: 'disabled', false: ''}[page.current]"><a href="" ng-click="search(query, page.number)">{{page.text}}</a></li>
+        </ul>
+    </div>
+
+</div>

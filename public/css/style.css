@@ -87,3 +87,7 @@ a label {
     height: 100%;
     vertical-align: middle;
 }
+
+.pagination{
+    margin-top: 0;
+}

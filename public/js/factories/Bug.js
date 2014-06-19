@@ -23,6 +23,17 @@ define(['app'], function (mainApp) {
           });
         return deferred.promise;
       },
+      search : function(options){
+        var deferred = $q.defer();
+        $http.post('/bugs/search', options)
+          .success(function (res) {
+            deferred.resolve(res);
+          })
+          .error(function(data, status, headers, config) {
+            deferred.reject(data);
+          });
+        return deferred.promise;
+      },
       add: function (data) {
         var deferred = $q.defer();
         var ops = {

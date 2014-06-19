@@ -1,9 +1,16 @@
-define(['app', 'angular', 'angularRoute', 'controllers/AppController', 'controllers/LoginController','controllers/AddBugController','controllers/ListBugController','controllers/BugController'], function(mainApp){
+define(['app', 'angular', 'angularRoute', 'controllers/AppController', 'controllers/LoginController','controllers/AddBugController','controllers/ListBugController','controllers/BugController','controllers/SearchController'], function(mainApp){
   mainApp.config(function($routeProvider,USER_ROLES) {
     $routeProvider
       .when('/', {
-        templateUrl: 'templates/listBugs.html',
-        controller: 'ListBugController',
+        templateUrl: 'templates/searchBugs.html',
+        controller: 'SearchController',
+        data: {
+          authorizedRoles: [USER_ROLES.all]
+        }
+      })
+      .when('/bugs/search', {
+        templateUrl: 'templates/searchBugs.html',
+        controller: 'SearchController',
         data: {
           authorizedRoles: [USER_ROLES.all]
         }
