@@ -118,8 +118,8 @@ CREATE TABLE bugs (
     booking_id integer,
     user_id integer,
     driver_id integer,
-    brower character varying,
-    browser_id character varying,
+    browser character varying,
+    browser_version character varying,
     created timestamp without time zone
     modified timestamp without time zone
 );
