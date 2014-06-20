@@ -8,16 +8,30 @@ var multipartMiddleware = multipart();
 
 var utils = require('./misc/utils');
 var auth = require('./misc/auth');
+var config = require('./config');
 
 
 var Bookshelf = require('bookshelf');
-
-global.bookshelf = Bookshelf.initialize({
-  client: 'sqlite3',
-  connection: {
-    filename : './db.sqlite3'
-  }
+Bookshelf.PG = Bookshelf.initialize({
+    client: 'pg',
+    connection: {
+        host: config.database.host,
+        user: config.database.user,
+        password: config.database.password,
+        database: config.database.database,
+        charset: 'utf8'
+    }
 });
+global.bookshelf = require('bookshelf').PG;
+
+var Bookshelf = require('bookshelf');
+
+//global.bookshelf = Bookshelf.initialize({
+//  client: 'sqlite3',
+//  connection: {
+//    filename : './db.sqlite3'
+//  }
+//});
 
 
 global.models = require('./models/index').models;

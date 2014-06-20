@@ -36,10 +36,8 @@ module.exports  = global.bookshelf.Model.extend({
     _.each(files, function(file){
       var fieldName = file.fieldName;
       var path = file.path;
-      console.log(file.path);
       var promise = utils.moveFile(file.path, 'public/files/')
         .then(function(filePath){
-          console.log(filePath);
           filePath = filePath.replace('public/', '');
           return self.related('Files').create({name: filePath}).yield(self);
         });
@@ -48,7 +46,6 @@ module.exports  = global.bookshelf.Model.extend({
 
     when.all(filePromises)
       .then(function(){
-        console.log('buenis');
         deferred.resolve(self);
       })
       .catch(function(e){
@@ -66,13 +63,13 @@ module.exports  = global.bookshelf.Model.extend({
 
         var path = "public/" + file.get('name');
 
-        console.log(fs.existsSync(path));
+//        console.log(fs.existsSync(path));
         if (fs.existsSync(path)) {
           fs.unlinkSync(path);
         }
         file.destroy();
 
-        console.log(file);
+//        console.log(file);
         return when.resolve(self);
       });
   },
@@ -94,10 +91,10 @@ module.exports  = global.bookshelf.Model.extend({
 
     if(search !== null){
       var termArray = search.split(" ");
-      var where = "title LIKE '%" + search + "' OR description LIKE '%" + search + "' ";
+      var where = "title ILIKE '%" + search + "' OR description ILIKE '%" + search + "' ";
       for (var i = 0; i < termArray.length; i++) {
         if (termArray[i].length > 1) {
-          where += "OR title LIKE '%" + termArray[i] + "%' OR description LIKE '%" + termArray[i] + "%' ";
+          where += "OR title ILIKE '%" + termArray[i] + "%' OR description ILIKE '%" + termArray[i] + "%' ";
         }
       }
       query += "where " + where;
@@ -109,7 +106,7 @@ module.exports  = global.bookshelf.Model.extend({
 
     return global.bookshelf.knex.raw(query)
       .then(function(result){
-        total = result[0][0]['count(*)'];
+        total = result.rows[0].count;
         if(limit == 0 ){
           total_pages = 1;
         }else{

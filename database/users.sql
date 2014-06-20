@@ -1,2 +1,2 @@
-INSERT INTO users (id, email, password, created, token, role, name) VALUES (1, 'info@luisbravoa.com', '123456', '30-5-2014 10:54:29', '78b23640-f7ea-11e3-aff6-6fb190257823', 'admin', 'Luis Bravo');
-INSERT INTO users (id, email, password, created, token, role, name) VALUES (2, 'info@luisbravoa.com2', '123456', '30-5-2014 10:58:20', 'f8a86040-eb42-11e3-a931-8da42f02c837', 'user', null);
+INSERT INTO users (id, email, name, password, created, modified, token, role) VALUES (1, 'info@luisbravoa.com', 'luis bravoa', '123456', now(), now(), '78b23640-f7ea-11e3-aff6-6fb190257823', 'admin');
+INSERT INTO users (id, email, name, password, created, modified, token, role) VALUES (2, 'info@luisbravoa.com2', 'luis', '123456', now(), now(),'f8a86040-eb42-11e3-a931-8da42f02c837', 'user');
