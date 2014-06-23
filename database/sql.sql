@@ -120,7 +120,7 @@ CREATE TABLE bugs (
     driver_id integer,
     browser character varying,
     browser_version character varying,
-    created timestamp without time zone
+    created timestamp without time zone,
     modified timestamp without time zone
 );
 
