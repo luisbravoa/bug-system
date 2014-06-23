@@ -18,6 +18,7 @@ define(['app', 'underscore', 'factories/User', 'factories/Auth',  'factories/App
 
     $scope.searchRequest = function(){
       $scope.loading = true;
+      console.log('searchRequest');
       Bug.search($scope.options)
         .then(function(res){
           $scope.bugs = res.data;
@@ -30,7 +31,7 @@ define(['app', 'underscore', 'factories/User', 'factories/Auth',  'factories/App
     }
 
     $scope.search = function(text, page){
-      if(page == $scope.page && text == $scope.options.query) return;
+//      if(page == $scope.page && text == $scope.options.query) return;
       $scope.options.page = page;
       $scope.options.query = text;
       $cookies.searchOptions = JSON.stringify($scope.options);

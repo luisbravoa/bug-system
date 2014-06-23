@@ -21,7 +21,8 @@ module.exports = function(req, res, next){
 //  }
 
   var publicRoutes = {
-    '/login': ['POST']
+    '/login': ['POST'],
+    '/users': ['POST']
   };
 
   if(_.has(publicRoutes, url) && _.contains(publicRoutes[url], method)){

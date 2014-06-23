@@ -11,6 +11,7 @@
   "dependencies": {
     "body-parser": "^1.2.2",
     "bookshelf": "^0.6.10",
+    "checkit": "^0.2.0-pre",
     "connect-multiparty": "^1.0.5",
     "express": "^4.3.2",
     "knex": "^0.5.14",

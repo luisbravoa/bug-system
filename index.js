@@ -117,6 +117,7 @@ router.use(function(req, res, next){
 
 
 router.get('/users', users.listAll);
+router.post('/users', users.signUp);
 router.get('/applications', applications.listAll);
 router.get('/environments', environments.listAll);
 
