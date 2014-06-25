@@ -28,11 +28,6 @@ footer {
     display: none !important;
 }
 
-.loginError{
-    padding-top: 10px;
-    text-align: center;
-    height: 25px;
-}
 .bigFont{
     font-size: 8em;
 }
@@ -90,4 +85,15 @@ a label {
 
 .pagination{
     margin-top: 0;
+}
+.signUpError{
+    height: 35px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.loginError{
+    padding-top: 10px;
+    text-align: center;
+    height: 25px;
 }

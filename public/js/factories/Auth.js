@@ -3,17 +3,21 @@ define(['app', 'services/Session'], function (mainApp) {
     return {
       login: function (credentials) {
         var deferred = $q.defer();
+        var self = this;
 
         $http
           .post('/login', credentials)
           .success(function (res) {
-            Session.create(res);
+            self.persistUser(res);
             deferred.resolve(res);
           })
           .error(function(data, status, headers, config) {
             deferred.reject(data);
           });
         return deferred.promise;
+      },
+      persistUser: function(data){
+        Session.create(data);
       },
       logout: function () {
         var deferred = $q.defer();

@@ -6,9 +6,9 @@ define(['app', 'factories/Auth'], function (mainApp) {
     }
 
     $scope.currentUser = AuthService.loggedUser();
-    if(!$scope.currentUser && $location.path != '/login'){
+    if(!$scope.currentUser && $location.path() != '/login' && $location.path() != '/signup'){
       $location.path('/login');
-    }else{
+    }else if($scope.currentUser){
       $scope.setTokenHeader();
     }
 

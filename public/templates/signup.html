@@ -1,0 +1,17 @@
+<div class="container col-lg-4 col-lg-push-4">
+
+    <form class="form-signin" role="form"  ng-submit="signUp(credentials)">
+        <h2 class="form-signin-heading">Create an account</h2>
+        <input type="email" class="form-control" placeholder="Email address" required="" autofocus="" ng-model="credentials.email">
+        <br />
+        <input type="text" class="form-control" placeholder="Name" required="" ng-model="credentials.name">
+        <br />
+        <input type="password" class="form-control" placeholder="Password" required="" ng-model="credentials.password">
+        <br />
+        <input type="password" class="form-control" placeholder="Repeat Password" required="" ng-model="credentials.password2">
+        <div class="signUpError"><span class="text-danger">{{error}}</span></div>
+        <button class="btn btn-lg btn-default" type="submit">Create Account</button>
+        <a href="#/login" class="btn btn-lg btn-default btn-danger">Cancel</a>
+    </form>
+
+</div>

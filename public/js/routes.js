@@ -1,4 +1,4 @@
-define(['app', 'angular', 'angularRoute', 'controllers/AppController', 'controllers/LoginController','controllers/AddBugController','controllers/ListBugController','controllers/BugController','controllers/SearchController'], function(mainApp){
+define(['app', 'angular', 'angularRoute', 'controllers/AppController', 'controllers/LoginController','controllers/AddBugController','controllers/ListBugController','controllers/BugController','controllers/SearchController','controllers/SignUpController'], function(mainApp){
   mainApp.config(function($routeProvider,USER_ROLES) {
     $routeProvider
       .when('/', {
@@ -39,6 +39,13 @@ define(['app', 'angular', 'angularRoute', 'controllers/AppController', 'controll
       .when('/login', {
         templateUrl: 'templates/login.html',
         controller: 'LoginController',
+        data: {
+          authorizedRoles: [USER_ROLES.all]
+        }
+      })
+      .when('/signup', {
+        templateUrl: 'templates/signup.html',
+        controller: 'SignUpController',
         data: {
           authorizedRoles: [USER_ROLES.all]
         }
