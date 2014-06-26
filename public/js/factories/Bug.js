@@ -62,6 +62,23 @@ define(['app'], function (mainApp) {
           });
         return deferred.promise;
       },
+      edit: function (data) {
+        var deferred = $q.defer();
+        var id = data.id;
+        delete data.Files;
+        delete data.Application;
+        delete data.Environment;
+
+        $http
+          .post('/bugs/' + id, data)
+          .success(function (res) {
+            deferred.resolve(res);
+          })
+          .error(function(data, status, headers, config) {
+            deferred.reject(data);
+          });
+        return deferred.promise;
+      },
       addFiles: function (id, data) {
         var deferred = $q.defer();
         var ops = {

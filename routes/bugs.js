@@ -23,6 +23,23 @@ exports.add = function(req, res){
 }
 
 
+exports.edit = function(req, res){
+  var data = req.body;
+  var id = req.params.id;
+
+  global.models.Bug.forge()
+    .edit(id, data)
+    .then(function(bug){
+      res.status(200);
+      res.send(bug);
+    })
+    .catch(function(e){
+      res.status(500);
+      res.send(e.message);
+    });
+}
+
+
 exports.addFiles = function(req, res){
   var id = req.params.id;
   var files = req.files;

@@ -73,7 +73,8 @@ SET default_with_oids = false;
 CREATE TABLE applications (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    type character varying(10) NOT NULL
+    type character varying(10) NOT NULL,
+    user_id integer,
 );
 
 

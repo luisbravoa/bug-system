@@ -128,6 +128,10 @@ router.post('/bugs/search', bugs.search);
 router.delete('/bugs/:id/files/:file_id', bugs.deleteFile);
 router.post('/bugs/:id/files', multipartMiddleware, bugs.addFiles);
 router.post('/bugs', multipartMiddleware, bugs.add);
+router.post('/bugs/:id', bugs.edit);
+
+router.post('/applications', applications.add);
+router.put('/applications/:id', applications.edit);
 
 var server = app.listen(3000, function() {
   console.log('Listening on port %d', server.address().port);

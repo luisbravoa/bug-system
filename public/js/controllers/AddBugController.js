@@ -31,8 +31,10 @@ define(['app', 'factories/User', 'factories/Auth',  'factories/Application',  'f
     }
 
     $scope.process = function(bug){
+      $scope.blockUI();
       Bug.add(bug)
         .then(function(){
+          $scope.unBlockUI();
           $location.path('/bugs/list');
         });
     }

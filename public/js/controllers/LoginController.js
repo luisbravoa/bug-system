@@ -11,12 +11,15 @@ define(['app', 'factories/User', 'factories/Auth', 'services/Session'], function
     };
 
     $scope.login = function (credentials) {
+      $scope.blockUI();
       $scope.loginError = null;
       AuthService.login(credentials).then(function () {
+        $scope.unBlockUI();
         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       }, function (err) {
         $scope.loginError = err;
         $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+        $scope.unBlockUI();
       });
     };
   }]);

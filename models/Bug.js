@@ -3,6 +3,8 @@ var when = require('when');
 var uuid = require('node-uuid');
 var utils = require('../misc/utils');
 var fs = require('fs');
+var Checkit = require('checkit');
+
 
 module.exports  = global.bookshelf.Model.extend({
   tableName: 'bugs',
@@ -15,14 +17,54 @@ module.exports  = global.bookshelf.Model.extend({
   Application: function () {
     return this.belongsTo(global.models.Application, 'application_id');
   },
+  validations: {
+    title: ['required', 'minLength:3', 'maxLength:255'],
+    description: ['required', 'minLength:3'],
+    user_id: ['integer'],
+    application_id: ['integer'],
+    booking_id: ['integer'],
+    driver_id: ['integer']
+  },
+  defaults: {
+    "created": new Date(),
+    "modified": new Date()
+  },
   add: function(data){
     var self = this;
     var files = data.screenshots;
+    var checkit = new Checkit(self.validations);
     data = _.omit(data, 'screenshots');
-    return self.set(data)
-      .save()
+    return checkit.run(data)
+      .then(function(){
+        return self.set(data)
+          .save();
+      })
       .then(function(model){
         return self.addImages(files);
+      })
+      .catch(function(e){
+        return when.reject(e);
+      });
+  },
+  edit: function(id, data){
+    var self = this;
+    var checkit = new Checkit(self.validations);
+    var data = _.omit(data, ['id', 'user_id']);
+
+    return self.set({id: id})
+      .fetch()
+      .then(function(app){
+        if(!app){
+          return when.reject(new Error('App does not exists.'));
+        }
+        self.set(data);
+        return checkit.run(self.toJSON())
+      })
+      .then(function(){
+        return self.save()
+          .then(function(model){
+            return when.resolve(self);
+          })
       })
       .catch(function(e){
         return when.reject(e);

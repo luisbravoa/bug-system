@@ -39,7 +39,8 @@ define(['app', 'jQuery', 'underscore', 'factories/User', 'factories/Auth',  'fac
     }
 
     $scope.addFiles = function(screenshots){
-      $scope.loadingFiles = true;
+//      $scope.loadingFiles = true;
+      $scope.blockUI();
       Bug.addFiles($scope.id , screenshots)
         .then(function(files){
           angular.forEach(
@@ -50,7 +51,8 @@ define(['app', 'jQuery', 'underscore', 'factories/User', 'factories/Auth',  'fac
           $scope.screenshots = null;
           console.log('BIENNNNNNNNNN', files);
           $scope.bug.Files = $scope.bug.Files.concat(files);
-          $scope.loadingFiles = false;
+//          $scope.loadingFiles = false;
+          $scope.unBlockUI();
         });
       console.log(screenshots);
     }
@@ -82,8 +84,18 @@ define(['app', 'jQuery', 'underscore', 'factories/User', 'factories/Auth',  'fac
 
     $scope.process = function(bug){
       console.log(bug);
+      $scope.blockUI();
+      Bug.edit(bug)
+        .then(function(res){
+          $scope.bug = res;
+          $scope.getType();
+          $scope.formEnabled = false;
+          $scope.unBlockUI();
+        },
+      function(err){
+        console.log(err);
+      });
     }
-
 
   }]);
 });

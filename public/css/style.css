@@ -95,5 +95,23 @@ a label {
 .loginError{
     padding-top: 10px;
     text-align: center;
-    height: 25px;
+    height: 35px;
 }
+#blockUI {
+    color: #ffffff;
+    text-align: center;
+}
+#blockUIContent{
+    height: 100%;
+    display:table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#blockUI-title {
+
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+}
+

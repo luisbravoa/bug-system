@@ -1,4 +1,4 @@
-define(['app', 'factories/Auth'], function (mainApp) {
+define(['app', 'jQuery' , 'factories/Auth'], function (mainApp, $) {
   mainApp.controller('AppController', function ($rootScope, $scope, $http, $location, USER_ROLES, AUTH_EVENTS, AuthService) {
 
     $scope.setTokenHeader = function(){
@@ -40,5 +40,24 @@ define(['app', 'factories/Auth'], function (mainApp) {
           $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess)
         });
     }
+
+
+    $scope.blockUI = function () {
+      var self = this;
+      if (!$scope.modal !== null && !$('#blockUI').hasClass('in')) {
+        $scope.modal = $('#blockUI').modal({keyboard: false, backdrop: 'static'});
+        console.log('blockUI');
+      }
+    }
+    $scope.unBlockUI = function () {
+      var self = this;
+      if ($scope.modal) {
+        $scope.modal.modal('hide');
+        console.log('blockUI');
+      }
+        $scope.modal = null;
+    }
+
+
   });
 });
