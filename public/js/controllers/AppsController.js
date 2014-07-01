@@ -8,22 +8,42 @@ define(['app', 'factories/User', 'factories/Auth',  'factories/Application',  'f
       });
 
 
-    $scope.process = function(bug){
-      $scope.blockUI();
-      Bug.add(bug)
-        .then(function(){
-          $scope.unBlockUI();
-          $location.path('/bugs/list');
-        });
-    }
-    $scope.selected = {name:"", type:"mobile"}
 
-    $scope.edit = function(app){
+
+    $scope.resetSelected = function(){
+      $scope.selected = {name:"", type:"mobile"};
+    }
+
+    $scope.resetSelected();
+
+    $scope.editModal = function(app){
       $scope.selected = app;
       $('#myModal').modal();
       $('#myModal').on('hidden.bs.modal', function (e) {
-        $scope.selected = {name:"", type:"mobile"};
+        $scope.resetSelected();
       })
+    }
+
+    $scope.addModal = function(app){
+      $scope.resetSelected();
+      $('#myModal').modal();
+      $('#myModal').on('hidden.bs.modal', function (e) {
+        $scope.resetSelected();
+      })
+    }
+
+
+    $scope.add = function(app){
+      $scope.blockUI();
+      Application.add(app)
+        .then(function(res){
+          $scope.unBlockUI();
+          $scope.applications.push(res);
+          $('#myModal').modal('hide');
+        }, function(err){
+          $scope.unBlockUI();
+          $scope.error = err;
+        });
     }
 
 

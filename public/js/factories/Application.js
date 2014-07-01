@@ -11,6 +11,18 @@ define(['app'], function (mainApp) {
             deferred.reject(status);
           });
         return deferred.promise;
+      },
+      add: function (data) {
+        var deferred = $q.defer();
+        $http
+          .post('/applications', data)
+          .success(function (res) {
+            deferred.resolve(res);
+          })
+          .error(function(data, status, headers, config) {
+            deferred.reject(data);
+          });
+        return deferred.promise;
       }
     };
   }]);
