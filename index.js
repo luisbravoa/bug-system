@@ -10,6 +10,10 @@ var utils = require('./misc/utils');
 var auth = require('./misc/auth');
 var config = require('./config');
 
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+
+
 
 var Bookshelf = require('bookshelf');
 Bookshelf.PG = Bookshelf.initialize({
@@ -133,7 +137,7 @@ router.post('/bugs/:id', bugs.edit);
 router.post('/applications', applications.add);
 router.put('/applications/:id', applications.edit);
 
-var server = app.listen(3000, function() {
+var server = app.listen(server_port, server_ip_address, function() {
   console.log('Listening on port %d', server.address().port);
 });
 app.use('/', router);
